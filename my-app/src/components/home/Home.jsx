@@ -1,15 +1,14 @@
-import React from 'react';
-import Footer from '../Footer/Footer';
-import Nav from '../nav/nav';
+import React, { useContext } from 'react';
+import { userInfo } from '../../context/AuthProvider';
 import Post from '../Post/Post';
 import TrendingSection from '../TrendingSection/TrendingSection';
 const Home = () => {
+  const {user} = useContext(userInfo)
+  // console.log(user)
     return (
       <div>
-        <Nav></Nav>
-        <Post></Post>
+        {user && <Post></Post>}
         <TrendingSection></TrendingSection>
-        <Footer></Footer>
       </div>
     );
 };

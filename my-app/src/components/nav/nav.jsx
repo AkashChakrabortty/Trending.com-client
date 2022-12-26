@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Divider from '../Divider/Divider';
 
 const Nav = () => {
     return (
@@ -51,13 +52,15 @@ const Nav = () => {
             </a>
           </div>
           <div className="navbar-end">
-            <div className="avatar">
+            <Link className="text-xl text-info border-info border-b-2 mx-3" to='/login'>Login</Link>
+            {/* <div className="avatar">
               <div className="w-10 rounded-full ring ring-info">
                 <img src="https://placeimg.com/192/192/people" />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
+        <Divider></Divider>
       </div>
     );
 };

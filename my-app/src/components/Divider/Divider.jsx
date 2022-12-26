@@ -2,7 +2,7 @@ import React from 'react';
 import dividerLogo from "../../Divider-logo/divider.jpg";
 const Divider = () => {
     return (
-      <div>
+      <div className="default-bg">
         <div className="divider">
           <img src={dividerLogo} alt="dividerLogo" />
         </div>
