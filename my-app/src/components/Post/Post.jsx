@@ -26,6 +26,7 @@ const Post = () => {
             </button>
           </div>
         </form>
+        <Divider></Divider>
       </div>
     );
 };
