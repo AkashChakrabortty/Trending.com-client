@@ -1,11 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AiTwotoneHeart } from "react-icons/ai";
 import { useLoaderData } from 'react-router-dom';
+import { userInfo } from '../../context/AuthProvider';
 import Divider from '../Divider/Divider';
 
 const DetailsCard = () => {
     const loaderData =  useLoaderData();
-    console.log(loaderData)
+    const {user} = useContext(userInfo)
+  
+    const handleReaction = (post) => {
+      const loveInfo = {
+        post_owner: loaderData.user_name,
+        post_owner_email: loaderData.user_email,
+        post_owner_Photo: loaderData.user_photo,
+        post: loaderData.post,
+        post_photo: loaderData.post_photo,
+        love_giver_name: user.displayName,
+        love_giver_email: user.email,
+        love_giver_photo: user.photoURL,
+        previous_id: loaderData._id,
+      };
+
+      fetch(`http://localhost:5000/love`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(loveInfo),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+        //   if (data.acknowledged === false) {
+        //     // setReFetch(!reFetch);
+        //   } else {
+        //     // setReFetch(!reFetch);
+        //   }
+        console.log(data)
+        });
+
+
+    };
     return (
       <div className="w-9/12 mx-auto border-2 border-info p-4 rounded text-info default-bg">
         <div className="avatar">
@@ -25,7 +59,7 @@ const DetailsCard = () => {
           />
         </div>
         <div className="reaction my-3">
-          <button className="btn btn-outline btn-info text-xl mb-2">
+          <button className="btn btn-outline btn-info text-xl mb-2" onClick={handleReaction}>
             <AiTwotoneHeart></AiTwotoneHeart>
           </button>
           <textarea
