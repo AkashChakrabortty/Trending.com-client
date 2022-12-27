@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { userInfo } from '../../context/AuthProvider';
 import Divider from '../Divider/Divider';
 
 const Nav = () => {
+  const { user, logout } = useContext(userInfo);
+  const handleLogout = () => {
+  logout();
+  }
     return (
       <div>
         <div className="navbar">
@@ -29,7 +34,7 @@ const Nav = () => {
                 className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-info default-bg"
               >
                 <li>
-                  <Link>Homepage</Link>
+                  <Link to="/">Homepage</Link>
                 </li>
                 <li>
                   <Link>Media</Link>
@@ -52,17 +57,27 @@ const Nav = () => {
             </Link>
           </div>
           <div className="navbar-end">
-            <Link
-              className="text-xl text-info border-info border-b-2 mx-3"
-              to="/login"
-            >
-              Login
-            </Link>
-            {/* <div className="avatar">
-              <div className="w-10 rounded-full ring ring-info">
-                <img src="https://placeimg.com/192/192/people" />
-              </div>
-            </div> */}
+            {user ? (
+              <>
+                <button onClick={handleLogout}>
+                  <Link className="text-xl text-info border-info border-b-2 mx-3">
+                    Logout
+                  </Link>
+                </button>
+                <div className="avatar">
+                  <div className="w-10 rounded-full ring ring-info">
+                    <img src={user.photoURL}  alt={user.displayName}/>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Link
+                className="text-xl text-info border-info border-b-2 mx-3"
+                to="/login"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
         <Divider></Divider>
