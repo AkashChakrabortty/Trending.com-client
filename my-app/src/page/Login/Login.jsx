@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Divider from "../../components/Divider/Divider";
 import { userInfo } from "../../context/AuthProvider";
 import logo from '../../Divider-logo/divider.jpg';
 const Login = () => {
   const { googleSignIn, login } = useContext(userInfo);
+  const navigate = useNavigate();
   const handleGoogle = ()=>{
 
      googleSignIn()
@@ -30,6 +31,15 @@ const Login = () => {
            .then((data) => {console.log(data)});
        })
   }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    login(email, password).then(() => {
+      navigate("/");
+    });
+  };
   return (
     <div className="default-bg">
       <section>
@@ -46,7 +56,7 @@ const Login = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-info md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form className="space-y-4 md:space-y-6">
+              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label
                     htmlFor="email"
