@@ -4,7 +4,6 @@ import Divider from '../Divider/Divider';
 const Post = () => {
     return (
       <div>
-        <Divider></Divider>
         <h2 className="text-center text-xl mb-2 text-info">Create a post...</h2>
         <form className="w-3/4 mx-auto">
           <div className="text">

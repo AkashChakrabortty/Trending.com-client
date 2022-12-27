@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import Divider from "../../components/Divider/Divider";
+import { userInfo } from "../../context/AuthProvider";
 import logo from '../../Divider-logo/divider.jpg';
 const Login = () => {
+  const { googleSignIn, login } = useContext(userInfo);
+  const handleGoogle = ()=>{
+
+     googleSignIn()
+       .then((result) => {
+         // The signed-in user info.
+         const user = result.user;
+
+         const userdb = {
+           email: user.email,
+           name: user.displayName,
+           photoUrl: user.photoURL,
+         };
+
+         fetch("http://localhost:5000/storeUser", {
+           method: "POST",
+           headers: {
+             "content-type": "application/json",
+           },
+           body: JSON.stringify(userdb),
+         })
+           .then((res) => res.json())
+           .then((data) => {console.log(data)});
+       })
+  }
   return (
     <div className="default-bg">
       <section>
@@ -18,7 +46,7 @@ const Login = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-info md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6">
                 <div>
                   <label
                     htmlFor="email"
@@ -57,14 +85,23 @@ const Login = () => {
                 >
                   Sign in
                 </button>
+
+                <Divider></Divider>
+                <div className="gmail-login flex justify-center text-4xl">
+                  <button onClick={handleGoogle}>
+                    <FcGoogle></FcGoogle>
+                  </button>
+                </div>
+                <Divider></Divider>
+
                 <p className="text-sm font-light text-info dark:text-gray-400">
                   Don’t have an account yet?{" "}
-                  <a
-                    href="#"
+                  <Link
+                    to="/register"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Register
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>

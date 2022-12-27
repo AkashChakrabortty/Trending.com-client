@@ -44,15 +44,20 @@ const Nav = () => {
             </div>
           </div>
           <div className="navbar-center">
-            <a
-              href="#f"
+            <Link
+              to="/"
               className="btn btn-ghost normal-case text-xl text-info"
             >
               Trending.com
-            </a>
+            </Link>
           </div>
           <div className="navbar-end">
-            <Link className="text-xl text-info border-info border-b-2 mx-3" to='/login'>Login</Link>
+            <Link
+              className="text-xl text-info border-info border-b-2 mx-3"
+              to="/login"
+            >
+              Login
+            </Link>
             {/* <div className="avatar">
               <div className="w-10 rounded-full ring ring-info">
                 <img src="https://placeimg.com/192/192/people" />
