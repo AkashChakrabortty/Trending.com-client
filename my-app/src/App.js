@@ -3,7 +3,7 @@ import './App.css';
 import router from './router/router';
 function App() {
   return (
-    <div className="default-bg h-screen">
+    <div className="default-bg">
       <RouterProvider router={router} />
     </div>
   );

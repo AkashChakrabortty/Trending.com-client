@@ -31,13 +31,10 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
-        // const uid = user.uid;
         setUser(user);
         setLoading(false);
       } else {
         setUser();
-        // console.log("else onAuthStateChanged");
       }
     });
   }, []);

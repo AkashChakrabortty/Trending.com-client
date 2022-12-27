@@ -37,7 +37,7 @@ const Nav = () => {
                   <Link to="/">Homepage</Link>
                 </li>
                 <li>
-                  <Link>Media</Link>
+                  <Link to="/media">Media</Link>
                 </li>
                 <li>
                   <Link>Message</Link>
@@ -66,7 +66,7 @@ const Nav = () => {
                 </button>
                 <div className="avatar">
                   <div className="w-10 rounded-full ring ring-info">
-                    <img src={user.photoURL}  alt={user.displayName}/>
+                    <img src={user.photoURL} alt={user.displayName} />
                   </div>
                 </div>
               </>
