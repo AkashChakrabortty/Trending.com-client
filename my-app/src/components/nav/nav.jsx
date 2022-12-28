@@ -43,7 +43,7 @@ const Nav = () => {
                   <Link>Message</Link>
                 </li>
                 <li>
-                  <Link>About</Link>
+                  <Link to="/about">About</Link>
                 </li>
               </ul>
             </div>

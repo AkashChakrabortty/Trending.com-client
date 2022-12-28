@@ -5,8 +5,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut,
-  updateProfile
+  signOut, updateProfile
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
@@ -33,6 +32,7 @@ const AuthProvider = ({ children }) => {
       if (user) {
         setUser(user);
         setLoading(false);
+        // console.log(user)
       } else {
         setUser();
       }
@@ -46,16 +46,21 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const updateUser = (displayName, photoURL) => {
+  const updateUser = (displayName, email) => {
     updateProfile(auth.currentUser, {
       displayName: displayName,
-      photoURL: photoURL,
     })
-      .then(() => {})
+      .then(() => {
+      })
       .catch((error) => {
         alert("something wrong");
       });
   };
+ 
+
+
+
+
   // console.log(loading);
   const authInfo = {
     googleSignIn,

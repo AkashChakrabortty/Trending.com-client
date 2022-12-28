@@ -3,6 +3,7 @@ import DetailsCard from "../components/DetailsCard/DetailsCard";
 import Footer from "../components/Footer/Footer";
 import Home from "../components/home/Home";
 import Nav from "../components/nav/nav";
+import About from "../page/About/About";
 import Login from '../page/Login/Login';
 import Media from '../page/Media/Media';
 import Register from "../page/Register/Register";
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
           return fetch(`http://localhost:5000/media/${params.id}`);
         },
         element: <DetailsCard></DetailsCard>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
       },
     ],
   },
