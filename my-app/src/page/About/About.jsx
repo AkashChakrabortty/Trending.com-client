@@ -1,10 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Divider from '../../components/Divider/Divider';
 import { userInfo } from '../../context/AuthProvider';
 
 const About = () => {
     const { user, updateUser } = useContext(userInfo);
     const [reFetch,setReFetch] = useState(true)
+    const [about,setAbout] = useState({})
+     useEffect(() => {
+       fetch(`http://localhost:5000/about/${user?.email}`)
+         .then((res) => res.json())
+         .then((data) => {
+           const about = {
+             email: data.email,
+             displayName: data.name,
+             photoURL: data.photoUrl,
+             university: data.university,
+             address:data.address
+           };
+            setAbout(about)
+         });
+     }, [user, reFetch]);
     const handleSubmit = (event) => {
       event.preventDefault();
       const email = event.target.email.value;
@@ -29,7 +44,7 @@ const About = () => {
        })
          .then((res) => res.json())
          .then((data) => {
-            // setReFetch(!reFetch)
+            setReFetch(!reFetch)
             event.target.reset();
         });
     }
@@ -38,17 +53,17 @@ const About = () => {
         <div className="card w-3/4 lg:w-1/2 bg-base-100 shadow-xl default-bg text-info mx-auto">
           <figure className="px-10 pt-10">
             <img
-              src={user?.photoURL}
-              alt={user?.displayName}
+              src={about?.photoURL}
+              alt={about?.displayName}
               className="rounded-xl h-32"
             />
           </figure>
           <div className="card-body items-center">
             <div className="info">
-              <p>Name: {user?.displayName}</p>
-              <p>Email: {user?.email}</p>
-              <p>University: {user?.email}</p>
-              <p>Address: {user?.email}</p>
+              <p>Name: {about?.displayName}</p>
+              <p>Email: {about?.email}</p>
+              <p>University: {about?.email}</p>
+              <p>Address: {about?.email}</p>
             </div>
           </div>
           <Divider></Divider>
@@ -98,7 +113,7 @@ const About = () => {
                   name="university"
                   id="university"
                   className="default-bg border border-info text-info sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Your university"
+                  placeholder={about?.university}
                   required
                 />
               </div>
@@ -114,7 +129,7 @@ const About = () => {
                   name="address"
                   id="address"
                   className="default-bg border border-info text-info sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder=" Your address"
+                  placeholder={about?.address}
                   required
                 />
               </div>
