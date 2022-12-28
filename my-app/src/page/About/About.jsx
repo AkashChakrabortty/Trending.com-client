@@ -62,8 +62,8 @@ const About = () => {
             <div className="info">
               <p>Name: {about?.displayName}</p>
               <p>Email: {about?.email}</p>
-              <p>University: {about?.email}</p>
-              <p>Address: {about?.email}</p>
+              <p>University: {about?.university}</p>
+              <p>Address: {about?.address}</p>
             </div>
           </div>
           <Divider></Divider>

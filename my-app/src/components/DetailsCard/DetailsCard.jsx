@@ -1,12 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiTwotoneHeart } from "react-icons/ai";
 import { useLoaderData } from 'react-router-dom';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { userInfo } from '../../context/AuthProvider';
 import Divider from '../Divider/Divider';
 const DetailsCard = () => {
     const loaderData =  useLoaderData();
     const {user} = useContext(userInfo)
-    // const notify = (a) => toast(a);
+    const [comments, setComments] = useState([]);
+    const [reFetch, setReFetch] = useState(true);
+    const notify = (a) => toast(a);
+     useEffect(() => {
+       fetch(`http://localhost:5000/comments/${loaderData?._id}`)
+         .then((res) => res.json())
+         .then((data) => {
+           setComments(data);
+         });
+     }, [reFetch]);
     const handleReaction = () => {
       const loveInfo = {
         post_owner: loaderData.user_name,
@@ -30,10 +41,10 @@ const DetailsCard = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.acknowledged === false) {
-            // notify('Love remove')
+            notify('Love remove')
             // setReFetch(!reFetch);
           } else {
-            //  notify("Love");
+             notify("Love");
             // setReFetch(!reFetch);
           }
         });
@@ -72,6 +83,7 @@ const DetailsCard = () => {
          })
            .then((res) => res.json())
            .then((data) => {
+            setReFetch(!reFetch)
              event.target.reset();
            });
        }
@@ -101,22 +113,51 @@ const DetailsCard = () => {
           >
             <AiTwotoneHeart></AiTwotoneHeart>
           </button>
-          <form onSubmit={handleForm} className='flex gap-2 items-center'>
+          <form onSubmit={handleForm} className="flex gap-2 items-center">
             <textarea
               className="textarea textarea-info w-full h-20 default-bg text-info"
               name="text"
               placeholder="Write here...."
             ></textarea>
-            <button
-              className="btn btn-outline btn-info mb-2"
-              type='submit'
-            >
-             Comment
+            <button className="btn btn-outline btn-info mb-2" type="submit">
+              Comment
             </button>
           </form>
         </div>
         <Divider></Divider>
-        <div className="all-comments"></div>
+        <ToastContainer />
+        <div className="allcomments my-2">
+          <h6 className="text-center">
+            <span className="border-info border-b-2 text-info">
+              Total comments:{comments.length}
+            </span>
+          </h6>
+          {comments?.map((singleComment) => {
+            return (
+              <>
+                <div className="d-flex">
+                  <div className="img  me-2">
+                    <img
+                      src={singleComment.comment_giver_photo}
+                      alt={singleComment.comment_giver_name}
+                      style={{
+                        height: "35px",
+                        width: "35px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </div>
+                  <div className="name-comments">
+                    <h5>{singleComment.comment_giver_name}</h5>
+                    <div className="comment border border-info p-2 rounded">
+                      {singleComment.comment}
+                    </div>
+                  </div>
+                </div>
+              </>
+            );
+          })}
+        </div>
       </div>
     );
 };
