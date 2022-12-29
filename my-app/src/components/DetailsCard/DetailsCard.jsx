@@ -13,14 +13,14 @@ const DetailsCard = () => {
     const [reFetch, setReFetch] = useState(true);
     const notify = (a) => toast(a);
      useEffect(() => {
-       fetch(`http://localhost:5000/comments/${loaderData?._id}`)
+       fetch(`https://trending-com-server.vercel.app/comments/${loaderData?._id}`)
          .then((res) => res.json())
          .then((data) => {
            setComments(data);
          });
      }, [reFetch]);
       useEffect(() => {
-        fetch(`http://localhost:5000/totalLoves/${loaderData?._id}`)
+        fetch(`https://trending-com-server.vercel.app/totalLoves/${loaderData?._id}`)
           .then((res) => res.json())
           .then((data) => {
             setTotalLoves(data);
@@ -39,7 +39,7 @@ const DetailsCard = () => {
         previous_id: loaderData._id,
       };
 
-      fetch(`http://localhost:5000/love`, {
+      fetch(`https://trending-com-server.vercel.app/love`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -82,7 +82,7 @@ const DetailsCard = () => {
            comment: text,
          };
          //insert db
-         fetch("http://localhost:5000/comment", {
+         fetch("https://trending-com-server.vercel.app/comment", {
            method: "POST",
            headers: {
              "content-type": "application/json",

@@ -7,7 +7,7 @@ const About = () => {
     const [reFetch,setReFetch] = useState(true)
     const [about,setAbout] = useState({})
      useEffect(() => {
-       fetch(`http://localhost:5000/about/${user?.email}`)
+       fetch(`https://trending-com-server.vercel.app/about/${user?.email}`)
          .then((res) => res.json())
          .then((data) => {
            const about = {
@@ -35,7 +35,7 @@ const About = () => {
         university,
         address,
       };
-       fetch("http://localhost:5000/edit", {
+       fetch("https://trending-com-server.vercel.app/edit", {
          method: "PATCH",
          headers: {
            "content-type": "application/json",

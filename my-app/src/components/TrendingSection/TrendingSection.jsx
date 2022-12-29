@@ -4,7 +4,7 @@ import Card from '../Card/Card';
 const TrendingSection = () => {
   const [posts,setPosts] = useState([])
    useEffect(() => {
-     fetch(`http://localhost:5000/trendingPosts`)
+     fetch(`https://trending-com-server.vercel.app/trendingPosts`)
        .then((res) => res.json())
        .then((data) => {
          setPosts(data);

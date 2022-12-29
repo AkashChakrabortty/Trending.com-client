@@ -1,4 +1,5 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
+import PrivateRoute from '../../src/PrivateRoute/PrivateRoute';
 import DetailsCard from "../components/DetailsCard/DetailsCard";
 import Footer from "../components/Footer/Footer";
 import Home from "../components/home/Home";
@@ -17,7 +18,6 @@ const router = createBrowserRouter([
         <Footer></Footer>
       </>
     ),
-    // errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -38,9 +38,13 @@ const router = createBrowserRouter([
       {
         path: "/media/:id",
         loader: async ({ params }) => {
-          return fetch(`http://localhost:5000/media/${params.id}`);
+          return fetch(`https://trending-com-server.vercel.app/media/${params.id}`);
         },
-        element: <DetailsCard></DetailsCard>,
+        element: (
+          <PrivateRoute>
+            <DetailsCard></DetailsCard>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/about",

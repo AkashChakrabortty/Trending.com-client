@@ -20,7 +20,7 @@ const Login = () => {
            photoUrl: user.photoURL,
          };
 
-         fetch("http://localhost:5000/storeUser", {
+         fetch("https://trending-com-server.vercel.app/storeUser", {
            method: "POST",
            headers: {
              "content-type": "application/json",
