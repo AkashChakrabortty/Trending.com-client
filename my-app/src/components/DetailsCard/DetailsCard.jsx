@@ -9,6 +9,7 @@ const DetailsCard = () => {
     const loaderData =  useLoaderData();
     const {user} = useContext(userInfo)
     const [comments, setComments] = useState([]);
+    const [totalLoves, setTotalLoves] = useState([]);
     const [reFetch, setReFetch] = useState(true);
     const notify = (a) => toast(a);
      useEffect(() => {
@@ -18,6 +19,13 @@ const DetailsCard = () => {
            setComments(data);
          });
      }, [reFetch]);
+      useEffect(() => {
+        fetch(`http://localhost:5000/totalLoves/${loaderData?._id}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setTotalLoves(data);
+          });
+      }, [reFetch]);
     const handleReaction = () => {
       const loveInfo = {
         post_owner: loaderData.user_name,
@@ -42,10 +50,10 @@ const DetailsCard = () => {
         .then((data) => {
           if (data.acknowledged === false) {
             notify('Love remove')
-            // setReFetch(!reFetch);
+              setReFetch(!reFetch);
           } else {
              notify("Love");
-            // setReFetch(!reFetch);
+               setReFetch(!reFetch);
           }
         });
 
@@ -112,6 +120,7 @@ const DetailsCard = () => {
             onClick={handleReaction}
           >
             <AiTwotoneHeart></AiTwotoneHeart>
+            {totalLoves?.length}
           </button>
           <form onSubmit={handleForm} className="flex gap-2 items-center">
             <textarea

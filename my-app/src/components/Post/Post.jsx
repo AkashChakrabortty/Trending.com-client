@@ -36,6 +36,7 @@ const Post = () => {
            user_name: user.displayName,
            user_photo: user.photoURL,
            milliseconds: milliseconds,
+           totalLoves: 0
          };
         fetch("http://localhost:5000/post", {
           method: "POST",

@@ -28,7 +28,7 @@ const Login = () => {
            body: JSON.stringify(userdb),
          })
            .then((res) => res.json())
-           .then((data) => {console.log(data)});
+           .then((data) => { navigate("/");});
        })
   }
   const handleSubmit = (event) => {
